@@ -5,7 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 
-class AuthenticationActivity : AppCompatActivity(), SignUpFragment.OnFragmentInteractionListener {
+class AuthenticationActivity : AppCompatActivity(),
+    SignUpFragment.OnFragmentInteractionListener, LogInFragment.OnFragmentInteractionListener {
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -16,6 +17,8 @@ class AuthenticationActivity : AppCompatActivity(), SignUpFragment.OnFragmentInt
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_authentication)
 
-        supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, SignUpFragment()).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, SignUpFragment()).commit()
+
+        supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, LogInFragment()).commit()
     }
 }

@@ -6,7 +6,11 @@ import android.os.Bundle
 import androidx.appcompat.widget.Toolbar
 
 class AuthenticationActivity : AppCompatActivity(),
-    SignUpFragment.OnFragmentInteractionListener, LogInFragment.OnFragmentInteractionListener {
+    SignUpFragment.OnFragmentInteractionListener,
+    LogInFragment.OnFragmentInteractionListener,
+    ForgotPasswordEmailFragment.OnFragmentInteractionListener,
+    ForgotPasswordNewPasswordFragment.OnFragmentInteractionListener {
+
     override fun onFragmentInteraction(uri: Uri) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -19,6 +23,11 @@ class AuthenticationActivity : AppCompatActivity(),
 
         //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, SignUpFragment()).commit()
 
-        supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, LogInFragment()).commit()
+        //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, LogInFragment()).commit()
+
+        //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, ForgotPasswordEmailFragment()).commit()
+
+        supportFragmentManager.beginTransaction().replace(R.id.activity_authentication, ForgotPasswordNewPasswordFragment()).commit()
+
     }
 }

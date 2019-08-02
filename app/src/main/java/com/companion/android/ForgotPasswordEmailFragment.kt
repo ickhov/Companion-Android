@@ -14,15 +14,6 @@ import android.view.ViewGroup
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Activities that contain this fragment must implement the
- * [ForgotPasswordEmailFragment.OnFragmentInteractionListener] interface
- * to handle interaction events.
- * Use the [ForgotPasswordEmailFragment.newInstance] factory method to
- * create an instance of this fragment.
- *
- */
 class ForgotPasswordEmailFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
@@ -45,17 +36,16 @@ class ForgotPasswordEmailFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_forgot_password_email, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+
+        listener!!.apply {
+            setCurrentFragment(FORGOT_PASSWORD_EMAIL_FRAGMENT)
         }
     }
 
@@ -78,6 +68,7 @@ class ForgotPasswordEmailFragment : Fragment() {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+        fun setCurrentFragment(name: String)
     }
 
     companion object {

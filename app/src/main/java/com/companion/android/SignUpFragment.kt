@@ -1,13 +1,22 @@
 package com.companion.android
 
+import android.app.Activity
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckedTextView
+import androidx.appcompat.widget.AppCompatCheckedTextView
+import androidx.core.content.ContextCompat
+import androidx.databinding.library.baseAdapters.BR
+import com.companion.android.databinding.FragmentSignUpBinding
 import com.google.android.material.textfield.TextInputLayout
+import kotlinx.android.synthetic.main.fragment_sign_up.*
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -18,6 +27,7 @@ class SignUpFragment : Fragment() {
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
     private var emailInputLayout: TextInputLayout? = null
+    private var model: AuthenticationViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +41,37 @@ class SignUpFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view: View = inflater.inflate(R.layout.fragment_sign_up, container, false)
+        val binding: FragmentSignUpBinding = FragmentSignUpBinding.inflate(inflater, container, false)
 
-        return view
+        //var passwordUppercase: CheckedTextView = view.findViewById(R.id.fragment_sign_up_password_require_uppercase_letters)
+        //var passwordLowercase: CheckedTextView = view.findViewById(R.id.fragment_sign_up_password_require_lowercase_letters)
+        //var passwordNumber: CheckedTextView = view.findViewById(R.id.fragment_sign_up_password_require_numbers)
+        //var passwordSpecialCharacters: CheckedTextView = view.findViewById(R.id.fragment_sign_up_password_require_special_character)
+
+        model = object : AuthenticationViewModel() {
+            override fun setPassword(value: String) {
+                // Avoids infinite loops.
+                if (user.password != value) {
+                    user.password = value
+
+                    user.password?.let {
+                        if (it.length >= 8) {
+                            val checkMark: Drawable? = context!!.getDrawable(R.drawable.ic_check_circle_24px)
+                            checkMark?.setTint(ContextCompat.getColor(context!!, R.color.colorSecondaryLight))
+                            fragment_sign_up_password_require_count?.setCompoundDrawables(checkMark, null, null, null)
+                        }
+                    }
+
+                    // Notify observers of a new value.
+                    notifyPropertyChanged(BR.model)
+                }
+            }
+        }
+
+        binding.model = model
+        binding.onClick = listener
+
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -42,6 +80,10 @@ class SignUpFragment : Fragment() {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+
+        listener!!.apply {
+            setCurrentFragment(SIGN_UP_FRAGMENT)
         }
     }
 
@@ -53,6 +95,9 @@ class SignUpFragment : Fragment() {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+        fun setCurrentFragment(name: String)
+        fun onClickLogIn(code: Int)
+        fun onClickSignUp(code: Int)
     }
 
     companion object {
@@ -64,5 +109,9 @@ class SignUpFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+
+        @JvmStatic
+        fun newInstance() =
+            SignUpFragment()
     }
 }

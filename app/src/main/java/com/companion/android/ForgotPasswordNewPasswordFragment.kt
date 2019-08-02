@@ -45,17 +45,16 @@ class ForgotPasswordNewPasswordFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_forgot_password_new_password, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+
+        listener!!.apply {
+            setCurrentFragment(FORGOT_PASSWORD_NEW_PASSWORD_FRAGMENT)
         }
     }
 
@@ -78,6 +77,7 @@ class ForgotPasswordNewPasswordFragment : Fragment() {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+        fun setCurrentFragment(name: String)
     }
 
     companion object {

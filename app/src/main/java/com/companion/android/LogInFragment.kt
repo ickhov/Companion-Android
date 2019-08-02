@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.library.baseAdapters.BR
+import com.companion.android.databinding.FragmentLogInBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -16,6 +18,7 @@ class LogInFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
     private var listener: OnFragmentInteractionListener? = null
+    private var model: AuthenticationViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,8 +32,24 @@ class LogInFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_log_in, container, false)
+        val binding: FragmentLogInBinding = FragmentLogInBinding.inflate(inflater, container, false)
+
+        model = object : AuthenticationViewModel() {
+            override fun setPassword(value: String) {
+                // Avoids infinite loops.
+                if (user.password != value) {
+                    user.password = value
+
+                    // Notify observers of a new value.
+                    notifyPropertyChanged(BR.model)
+                }
+            }
+        }
+
+        binding.model = model
+        binding.onClick = listener
+
+        return binding.root
     }
 
     override fun onAttach(context: Context) {
@@ -39,6 +58,10 @@ class LogInFragment : Fragment() {
             listener = context
         } else {
             throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
+        }
+
+        listener!!.apply {
+            setCurrentFragment(LOG_IN_FRAGMENT)
         }
     }
 
@@ -50,6 +73,10 @@ class LogInFragment : Fragment() {
     interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
+        fun setCurrentFragment(name: String)
+        fun onClickLogIn(code: Int)
+        fun onClickSignUp(code: Int)
+        fun onClickForgotPassword()
     }
 
     companion object {

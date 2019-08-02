@@ -1,0 +1,17 @@
+{
+  "CognitoUserPool": {
+    "Default": {
+      "PoolId": "us-west-2_z1YK5sSZS",
+      "AppClientId": "61n1tpu0dkalcf5ldl10gr1bcb",
+      "AppClientSecret": "4hpjgb2fr7pjiintii8fm412kg626fq48u3g6g2dqsgj3n8662j",
+      "Region": "us-west-2"
+    }
+  },
+  "AppSync": {
+    "Default": {
+      "ApiUrl": "",
+      "Region": "us-west-2",
+      "AuthMode": "AMAZON_COGNITO_USER_POOLS"
+    }
+  }
+}

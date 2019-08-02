@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Companion</string>
     
+    <string name="title_transition">Title Transition</string>
+    
     <string name="sign_up">Sign Up</string>
     <string name="log_in">Log In</string>
     <string name="log_out">Log Out</string>
@@ -12,15 +14,12 @@
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="password_requirement">Password must have uppercase letters,lowercase letters, numbers, and a special
-        character.
-    </string>
     <string name="email_requirement">Invalid email address</string>
     <string name="already_have_an_account_log_in">
-        <u>Already have an account? Log In Here</u>
+        Already have an account? <u>Log In Here</u>
     </string>
     <string name="dont_have_an_account_sign_up">
-        <u>Don\'t have an account? Sign Up Now</u>
+        Don\'t have an account? <u>Sign Up Now</u>
     </string>
     <string name="forgot_password_email">What\'s the email address associated with your account?</string>
     <string name="submit">Submit</string>
@@ -32,6 +31,13 @@
     <string name="new_password_repeat">Repeat New Password</string>
     <string name="resend_confirmation_code">Resend Confirmation Code</string>
     <string name="email_instruct_confirmation_code">Check your email for the confirmation code</string>
+    <string name="password_require_count">Require at least 8 characters</string>
+    <string name="password_require_uppercase_letters">Require uppercase letters</string>
+    <string name="password_require_lowercase_letters">Require lowercase letters</string>
+    <string name="password_require_numbers">Require numbers</string>
+    <string name="password_require_special_character">Require a special character</string>
+    
+    
     
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

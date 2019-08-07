@@ -131,7 +131,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toTopOf="@id/fragment_log_in_forgot_password_button"
-        android:onClick="@{() -> onClick.onClickLogIn(constant.CODE_LOG_IN)}"/>
+        android:onClick="@{() -> onClick.onClickLogIn()}"/>
         
         <com.google.android.material.button.MaterialButton
                 android:id="@+id/fragment_log_in_forgot_password_button"
@@ -160,7 +160,7 @@
                 app:layout_constraintTop_toBottomOf="@id/fragment_log_in_forgot_password_button"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:onClick="@{() -> onClick.onClickSignUp(constant.CODE_LOG_IN_TO_SIGN_UP)}"/>
+                android:onClick="@{() -> onClick.onClickSignUp()}"/>
     
     </androidx.constraintlayout.widget.ConstraintLayout>
     

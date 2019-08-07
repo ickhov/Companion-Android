@@ -1,0 +1,9 @@
+{
+	"auth": {
+		"companiondbd07b81dbd07b81": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": []
+		}
+	}
+}

@@ -5,98 +5,80 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ForgotPasswordEmailFragment"
+        tools:context=".EmailVerificationFragment"
         android:paddingStart="16dp"
         android:paddingEnd="16dp">
     
     <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/fragment_forgot_password_guideline"
+            android:id="@+id/fragment_email_verification_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             app:layout_constraintGuide_percent="0.09"/>
     
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/fragment_forgot_password_email_icon"
+            android:id="@+id/fragment_email_verification_icon"
             android:layout_width="100dp"
             android:layout_height="100dp"
             app:srcCompat="@drawable/ic_lock_24px"
             android:scaleType="fitCenter"
             app:tint="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/fragment_forgot_password_guideline"
+            app:layout_constraintTop_toBottomOf="@id/fragment_email_verification_guideline"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/fragment_forgot_password_email_title"/>
+            app:layout_constraintBottom_toTopOf="@id/fragment_email_verification_title"/>
     
     <TextView
-            android:id="@+id/fragment_forgot_password_email_title"
+            android:id="@+id/fragment_email_verification_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/forgot_password"
+            android:text="@string/email_verification"
             android:textSize="25sp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@color/transparent"
-            app:layout_constraintTop_toBottomOf="@id/fragment_forgot_password_email_icon"
+            app:layout_constraintTop_toBottomOf="@id/fragment_email_verification_icon"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/fragment_forgot_password_email_label"/>
+            app:layout_constraintBottom_toTopOf="@id/fragment_email_verification_label"/>
     
     <TextView
-            android:id="@+id/fragment_forgot_password_email_label"
+            android:id="@+id/fragment_email_verification_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/forgot_password_email"
+            android:text="@string/email_verification_label"
             android:textSize="18sp"
             android:gravity="center"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:layout_marginTop="24dp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_forgot_password_email_title"
+            app:layout_constraintTop_toBottomOf="@id/fragment_email_verification_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/fragment_forgot_password_email_layout"/>
+            app:layout_constraintBottom_toTopOf="@id/fragment_email_verification"/>
     
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/fragment_forgot_password_email_layout"
+    <com.companion.android.PinEntryEditText
+            android:id="@+id/fragment_email_verification"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:boxCornerRadiusTopStart="8dp"
-            app:boxCornerRadiusTopEnd="8dp"
-            app:boxCornerRadiusBottomStart="8dp"
-            app:boxCornerRadiusBottomEnd="8dp"
-            app:boxBackgroundColor="@color/white"
-            app:boxStrokeColor="@color/colorSecondaryLight"
-            app:startIconDrawable="@drawable/ic_email_24px"
-            app:startIconTint="@color/colorSecondary"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:hintAnimationEnabled="false"
-            app:hintEnabled="false"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_forgot_password_email_label"
+            android:layout_height="60dp"
+            android:inputType="number"
+            android:cursorVisible="false"
+            android:digits="1234567890"
+            android:maxLength="6"
+            android:textIsSelectable="false"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/fragment_email_verification_label"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/fragment_forgot_password_email_continue_button">
-        
-        <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/fragment_forgot_password_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:textColor="@color/black"
-                android:hint="@string/email"
-                android:textColorHint="@color/hint_color"/>
-    
-    </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintBottom_toTopOf="@id/fragment_email_verification_verify_button"/>
     
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/fragment_forgot_password_email_continue_button"
+            android:id="@+id/fragment_email_verification_verify_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/_continue"
+            android:text="@string/verify"
             android:textColor="@color/white"
             app:backgroundTint="@color/colorSecondary"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
@@ -105,12 +87,12 @@
             android:paddingTop="16dp"
             android:paddingBottom="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@id/fragment_forgot_password_email_layout"
+            app:layout_constraintTop_toBottomOf="@id/fragment_email_verification"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"/>
     
     <com.google.android.material.button.MaterialButton
-            android:id="@+id/fragment_forgot_password_email_sign_up_button"
+            android:id="@+id/fragment_email_verification_sign_up_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

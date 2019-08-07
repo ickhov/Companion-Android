@@ -1,0 +1,19 @@
+{
+    "master": {
+        "awscloudformation": {
+            "AuthRoleName": "companion-master-20190805195725-authRole",
+            "UnauthRoleArn": "arn:aws:iam::078625549383:role/companion-master-20190805195725-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::078625549383:role/companion-master-20190805195725-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "companion-master-20190805195725-deployment",
+            "UnauthRoleName": "companion-master-20190805195725-unauthRole",
+            "StackName": "companion-master-20190805195725",
+            "StackId": "arn:aws:cloudformation:us-west-2:078625549383:stack/companion-master-20190805195725/eb0d2ad0-b7f5-11e9-921c-0688a7bf983a"
+        },
+        "categories": {
+            "auth": {
+                "companiondbd07b81dbd07b81": {}
+            }
+        }
+    }
+}

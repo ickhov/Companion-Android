@@ -3,6 +3,7 @@ package com.companion.android
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
@@ -13,52 +14,56 @@ import androidx.transition.Fade
 import com.amazonaws.mobile.client.AWSMobileClient
 import com.amazonaws.mobile.client.Callback
 import com.amazonaws.mobile.client.UserStateDetails
+import com.amazonaws.mobile.client.results.SignUpResult
 
 class AuthenticationActivity : AppCompatActivity(),
     SignUpFragment.OnFragmentInteractionListener,
     LogInFragment.OnFragmentInteractionListener,
     ForgotPasswordEmailFragment.OnFragmentInteractionListener,
-    ForgotPasswordNewPasswordFragment.OnFragmentInteractionListener {
+    ForgotPasswordNewPasswordFragment.OnFragmentInteractionListener,
+    EmailVerificationFragment.OnFragmentInteractionListener {
 
-    override fun onClickLogIn(code: Int) {
-        when (code) {
-            CODE_SIGN_UP_TO_LOG_IN -> {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                performTransition(TAG_SIGN_UP, LogInFragment.newInstance(), TAG_LOG_IN, R.id.fragment_sign_up_title)
-                //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication_container, LogInFragment()).commit()
+    override fun onClickSignUp(user: User) {
+
+        val email: String = user.email
+        val name: String = user.name
+        val password: String? = user.password
+
+        val attributes: HashMap<String, String> = hashMapOf("email" to email, "name" to name)
+
+        AWSMobileClient.getInstance().signUp(email, password, attributes, null, object : Callback<SignUpResult> {
+            override fun onResult(result: SignUpResult?) {
+                Log.e(TAG_SIGN_UP, "Sign-up successful")
+                onClickEmailVerification()
             }
 
-            CODE_LOG_IN -> {
-
+            override fun onError(e: Exception?) {
+                Log.e(TAG_SIGN_UP, "Sign-up error", e)
             }
-
-            else -> {
-
-            }
-        }
+        })
     }
 
-    override fun onClickSignUp(code: Int) {
-        when (code) {
-            CODE_LOG_IN_TO_SIGN_UP -> {
-                supportActionBar?.setDisplayHomeAsUpEnabled(false)
-                performTransition(TAG_LOG_IN, SignUpFragment.newInstance(), TAG_SIGN_UP, R.id.fragment_log_in_title)
-                //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication_container, SignUpFragment()).commit()
-            }
+    override fun onClickEmailVerification() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        performTransition(TAG_SIGN_UP, TAG_EMAIL_VERIFICATION, null)
+    }
 
-            CODE_SIGN_UP -> {
+    override fun onClickLogIn() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        performTransition(TAG_SIGN_UP, TAG_LOG_IN, R.id.fragment_sign_up_title)
+    }
 
-            }
-
-            else -> {
-
-            }
-        }
+    override fun onClickSignUp() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        performTransition(TAG_LOG_IN, TAG_SIGN_UP, R.id.fragment_log_in_title)
     }
 
     override fun onClickForgotPassword() {
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        performTransition(TAG_LOG_IN, ForgotPasswordEmailFragment.newInstance(), TAG_FORGOT_PASSWORD_EMAIL, R.id.fragment_log_in_title)
+        Handler().postDelayed(
+            { supportActionBar?.setDisplayHomeAsUpEnabled(true) },
+            1300)
+
+        performTransition(TAG_LOG_IN, TAG_FORGOT_PASSWORD_EMAIL, null)
         //supportFragmentManager.beginTransaction().replace(R.id.activity_authentication_container, ForgotPasswordEmailFragment.newInstance(), TAG_FORGOT_PASSWORD_EMAIL).commit()
 
     }
@@ -109,8 +114,8 @@ class AuthenticationActivity : AppCompatActivity(),
         android.R.id.home -> {
             when (mCurrentFragment) {
                 FORGOT_PASSWORD_EMAIL_FRAGMENT -> {
-                    supportFragmentManager.beginTransaction().replace(R.id.activity_authentication_container, LogInFragment.newInstance(), TAG_LOG_IN).commit()
                     supportActionBar?.setDisplayHomeAsUpEnabled(false)
+                    performTransition(TAG_FORGOT_PASSWORD_EMAIL, TAG_LOG_IN, null)
                 }
 
                 FORGOT_PASSWORD_NEW_PASSWORD_FRAGMENT -> {
@@ -130,14 +135,14 @@ class AuthenticationActivity : AppCompatActivity(),
     }
 
     private fun performTransition(previousFragmentTag: String,
-                                  nextFragment: Fragment,
                                   nextFragmentTag: String,
-                                  sharedElementID: Int) {
+                                  sharedElementID: Int?) {
         if (isDestroyed) {
             return
         }
 
         val previousFragment = mFragmentManager.findFragmentByTag(previousFragmentTag)
+        val nextFragment = getFragmentByTag(nextFragmentTag)
 
         val fragmentTransaction = mFragmentManager.beginTransaction()
 
@@ -146,11 +151,13 @@ class AuthenticationActivity : AppCompatActivity(),
         exitFade.duration = 300
         previousFragment!!.exitTransition = exitFade
 
-        // 2. Shared Elements Transition
-        var enterTransitionSet = MoveTransition()
-        enterTransitionSet.duration = 1000
-        enterTransitionSet.startDelay = 300
-        nextFragment.sharedElementEnterTransition = enterTransitionSet
+        if (sharedElementID != null) {
+            // 2. Shared Elements Transition
+            val enterTransitionSet = MoveTransition()
+            enterTransitionSet.duration = 1000
+            enterTransitionSet.startDelay = 300
+            nextFragment.sharedElementEnterTransition = enterTransitionSet
+        }
 
         // 3. Enter Transition for New Fragment
         val enterFade = Fade()
@@ -158,11 +165,22 @@ class AuthenticationActivity : AppCompatActivity(),
         enterFade.startDelay = 300
         nextFragment.enterTransition = enterFade
 
-        val title: View = findViewById(sharedElementID)
-        fragmentTransaction.addSharedElement(title, title.transitionName)
+        if (sharedElementID != null) {
+            val title: View = findViewById(sharedElementID)
+            fragmentTransaction.addSharedElement(title, title.transitionName)
+        }
+
         fragmentTransaction.replace(R.id.activity_authentication_container, nextFragment, nextFragmentTag)
         fragmentTransaction.commitAllowingStateLoss()
     }
 
-
+    private fun getFragmentByTag(fragmentTag: String): Fragment {
+        return when(fragmentTag) {
+            TAG_LOG_IN -> LogInFragment.newInstance()
+            TAG_SIGN_UP -> SignUpFragment.newInstance()
+            TAG_FORGOT_PASSWORD_EMAIL -> ForgotPasswordEmailFragment.newInstance()
+            TAG_EMAIL_VERIFICATION -> EmailVerificationFragment.newInstance()
+            else -> ForgotPasswordNewPasswordFragment.newInstance()
+        }
+    }
 }

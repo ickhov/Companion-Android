@@ -16,10 +16,12 @@
     <string name="password">Password</string>
     <string name="email_requirement">Invalid email address</string>
     <string name="already_have_an_account_log_in">
-        Already have an account? <u>Log In Here</u>
+        Already have an account?
+        <u>Log In Here</u>
     </string>
     <string name="dont_have_an_account_sign_up">
-        Don\'t have an account? <u>Sign Up Now</u>
+        Don\'t have an account?
+        <u>Sign Up Now</u>
     </string>
     <string name="forgot_password_email">What\'s the email address associated with your account?</string>
     <string name="submit">Submit</string>
@@ -36,7 +38,9 @@
     <string name="password_require_lowercase_letters">Require lowercase letters</string>
     <string name="password_require_numbers">Require numbers</string>
     <string name="password_require_special_character">Require a special character</string>
-    
+    <string name="email_verification">Email Verification Code</string>
+    <string name="email_verification_label">Check your email for the verification code</string>
+    <string name="verify">Verify</string>
     
     
     <!-- TODO: Remove or change this placeholder text -->

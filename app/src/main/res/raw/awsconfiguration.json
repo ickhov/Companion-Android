@@ -1,17 +1,23 @@
 {
-  "CognitoUserPool": {
-    "Default": {
-      "PoolId": "us-west-2_z1YK5sSZS",
-      "AppClientId": "61n1tpu0dkalcf5ldl10gr1bcb",
-      "AppClientSecret": "4hpjgb2fr7pjiintii8fm412kg626fq48u3g6g2dqsgj3n8662j",
-      "Region": "us-west-2"
+    "UserAgent": "aws-amplify-cli/0.1.0",
+    "Version": "1.0",
+    "IdentityManager": {
+        "Default": {}
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "us-west-2:475adba7-ff6d-4bd6-885f-6f6f4eb9aaf1",
+                "Region": "us-west-2"
+            }
+        }
+    },
+    "CognitoUserPool": {
+        "Default": {
+            "PoolId": "us-west-2_XoeVHP6fj",
+            "AppClientId": "2nqo0cobaf39v52on8mntrgg79",
+            "AppClientSecret": "kanmoq3fc17m0srjbk5r3o28d83a7v5drv3loto5ichkqsnbsu7",
+            "Region": "us-west-2"
+        }
     }
-  },
-  "AppSync": {
-    "Default": {
-      "ApiUrl": "",
-      "Region": "us-west-2",
-      "AuthMode": "AMAZON_COGNITO_USER_POOLS"
-    }
-  }
 }

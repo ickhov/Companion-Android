@@ -74,8 +74,8 @@ class LogInFragment : Fragment() {
         // TODO: Update argument type and name
         fun onFragmentInteraction(uri: Uri)
         fun setCurrentFragment(name: String)
-        fun onClickLogIn(code: Int)
-        fun onClickSignUp(code: Int)
+        fun onClickLogIn()
+        fun onClickSignUp()
         fun onClickForgotPassword()
     }
 
@@ -102,4 +102,5 @@ class LogInFragment : Fragment() {
         fun newInstance() =
             LogInFragment()
     }
+
 }
